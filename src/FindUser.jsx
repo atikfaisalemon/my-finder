@@ -1,12 +1,15 @@
 import { useState } from "react";
 import GitHubUser from "./GitHubUser";
+import useGithub from "./hooks/useGithub";
 
 const FindUser = () => {
   const [userName, setUserName] = useState("");
+  const [user, error, loading, onButton] = useGithub(userName);
+
   return (
     <div>
       <h1 className="text-2xl font-mono">Find User</h1>
-      <form>
+      <div>
         <div className="flex flex-col gap-6 items-center">
           <label htmlFor=""></label>
           <input
@@ -17,14 +20,17 @@ const FindUser = () => {
               setUserName(e.target.value);
             }}
           />
-          <button className="border-4 px-5 rounded-lg hover:bg-slate-500">
+          <button
+            className="border-4 px-5 rounded-lg hover:bg-slate-500"
+            onClick={onButton}
+          >
             Find
           </button>
         </div>
-      </form>
+      </div>
       <div className="font-mono">
         {userName ? (
-          <GitHubUser username={userName} />
+          <GitHubUser user={user} error={error} loading={loading} />
         ) : (
           <p>Please insirt unermane..!!</p>
         )}

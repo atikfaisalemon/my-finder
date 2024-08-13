@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const useGithub = (username) => {
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
+  const onButton = () => {
     setLoading(true);
 
     const fetchData = async () => {
@@ -23,7 +23,7 @@ const useGithub = (username) => {
       }
     };
     fetchData();
-  }, [username]);
-  return [user, error, loading];
+  };
+  return [user, error, loading, onButton];
 };
 export default useGithub;
